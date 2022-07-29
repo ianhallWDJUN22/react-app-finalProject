@@ -4,12 +4,18 @@ const Show = require('../models/Show.model')
 
 router.get('/artist/:id', (req, res, next) => {
     const { UserArtistId } = req.params;
-    
+
+    if(!mongoose.Types.ObjectId.isValid(UserArtistId)){
+        res.status(400).json({ message: 'This venue does not appear to have baseNote account'});
+        return;
+    }
+
     UserVenue.findById(UserArtistId)
     .populate('shows')
     .then(artist => res.status(200).json(artist))
     .catch(err => res.json(err));
 })
+
 
 router.post('/artists', (req, res, next) => {
     const { email, username, password, artistName, description } = req.body

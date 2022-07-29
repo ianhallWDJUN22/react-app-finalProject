@@ -11,12 +11,14 @@ router.get('/venue/:id', (req, res, next) => {
         res.status(400).json({ message: 'This venue does not appear to have baseNote account'});
         return;
     }
-    
+
     UserVenue.findById(UserVenueId)
     .populate('shows')
     .then(venue => res.status(200).json(venue))
     .catch(err => res.json(err));
 })
+
+router.put('/')
 
 
 router.post('/venues', (req, res, next) => {
