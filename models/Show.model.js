@@ -4,7 +4,7 @@ const showSchema = new Schema(
     {
         showDate: {
             type: Date,
-            required: true
+            required: true,
         },
         venue: {
           type: Schema.Types.ObjectId,
@@ -17,13 +17,8 @@ const showSchema = new Schema(
         newArtist: {
             type: String
         },
-        startTime: {
-            type: String,
-            required: true
-        },
-        endTime: {
-            type: String,
-            required: true
+        newVenue: {
+            type: String
         },
         cost: {
             type: String,

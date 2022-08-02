@@ -21,7 +21,7 @@ const userVenueSchema = new Schema(
     },
     venueName: {
       type: String,
-      required: true
+      required: 'Must enter a venue name'
     },
     address: {
       type: String,

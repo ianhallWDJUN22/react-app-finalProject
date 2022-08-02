@@ -18,31 +18,11 @@ router.get('/venue/:id', (req, res, next) => {
     .catch(err => res.json(err));
 })
 
-router.put('/')
-
-
-router.post('/venues', (req, res, next) => {
-    const { email, username, password, venueName, description, address } = req.body
-
-    UserVenue.create({
-        email,
-        username,
-        password,
-        venueName,
-        address,
-        description,
-        shows: []
-    })
-    .then(response => res.json(response))
+router.get('/venues', (req, res, next) => {
+    UserVenue.find()
+    .then(venueArray => res.status(200).json(venueArray))
     .catch(err => res.json(err));
-});
-
-
-
-
-
-
+})
 
 
 module.exports = router
-

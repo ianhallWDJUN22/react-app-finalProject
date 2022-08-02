@@ -21,7 +21,7 @@ const userArtistSchema = new Schema(
     },
     artistName: {
       type: String,
-      required: true
+      required: 'Must enter an artist name'
     },
     description: {
       type: String

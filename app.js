@@ -25,11 +25,11 @@ app.use('/api', showRoutes);
 const userVenueRoutes = require('./routes/userVenue.routes');
 app.use('/api', userVenueRoutes);
 
-const userArtistRoutes = require('./routes/userArtist.routes')
+const userArtistRoutes = require('./routes/userArtist.routes');
 app.use('/api', userArtistRoutes);
 
-
-
+const authRoutes = require('./routes/auth.routes');
+app.use('/auth', authRoutes)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
