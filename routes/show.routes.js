@@ -5,6 +5,22 @@ const Show = require('../models/Show.model');
 const { default: mongoose } = require('mongoose');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
 
+router.get('/show/:showId', (req, res, next) => {
+    const { showId } = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(showId)) {
+        res.status(400).json({ message: 'It looks like this show may have been delted' })
+    }
+    Show.findById(showId)
+    .populate('venue artist')
+    .then(show => {
+        console.log(show)
+        res.status(200).json(show)
+    
+    })
+    .catch(err => res.json(err))
+})
+
 router.get('/shows', (req, res, next) => {
     const queryDate = new Date()
     const queryDateString = queryDate.getFullYear() + '-' + (queryDate.getMonth() + 1) + '-' + queryDate.getDate()
@@ -14,26 +30,11 @@ router.get('/shows', (req, res, next) => {
     },
     null, {sort: {showDate: 1}
     } )
-        .populate('artist', 'venue')
+        .populate('artist venue')
         .then(allShows => res.json(allShows))
         .catch(err => res.json(err));
 })
 
-router.get('/shows/:showId', (req, res, next) => {
-    const { showId } = req.params;
-    
-    if (!mongoose.Types.ObjectId.isValid(showId)) {
-        res.status(400).json({ message: 'It looks like this show may have been delted' })
-    }
-    Show.findById(showId)
-    .populate('venue', 'artist')
-    .then(show => {
-        
-        res.status(200).json(show)
-    
-    })
-    .catch(err => res.json(err))
-})
 
 router.put('/shows/edit/:showId', isAuthenticated, (req, res, next) => {
     const { showId } = req.params;
@@ -52,25 +53,25 @@ router.delete('/shows/delete/:showId', isAuthenticated, (req, res, next) => {
 });
 
 router.post('/shows', isAuthenticated, (req, res, next) => {
-    const { showDate, venueId, artistId, newArtist, startTime, endTime, cost } = req.body
-
+    const { showDate, venue, artist, newArtist, newVenue, cost, description } = req.body
+    console.log(req.body)
     let thisShowId = undefined;
 
     Show.create({
         showDate,
-        venue: venueId,
-        artist: artistId,
+        venue,
+        artist,
         newArtist,
-        startTime,
-        endTime,
-        cost
+        newVenue,
+        cost,
+        description
     })
     .then(newShow => {
         thisShowId = newShow._id;
-        return UserVenue.findByIdAndUpdate(venueId, { $push: { shows: thisShowId}}) 
+        return UserVenue.findByIdAndUpdate(venue, { $push: { shows: thisShowId}}) 
     })
     .then(() => {
-       return UserArtist.findByIdAndUpdate(artistId, { $push: { shows: thisShowId}})
+       return UserArtist.findByIdAndUpdate(artist, { $push: { shows: thisShowId}})
     })
     .then((response) => res.json(response))
     .catch((err) => console.log(err));

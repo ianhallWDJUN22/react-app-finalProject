@@ -23,6 +23,9 @@ const showSchema = new Schema(
         cost: {
             type: String,
             required: true
+        },
+        description: {
+            type: String
         }
     }
 )
