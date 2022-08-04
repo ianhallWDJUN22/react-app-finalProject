@@ -1,16 +1,16 @@
 const router = require('express').Router();
 const UserArtist = require('../models/UserArtist.model');
 const Show = require('../models/Show.model')
+const { default: mongoose } = require('mongoose');
 
-router.get('/artist/:id', (req, res, next) => {
-    const { UserArtistId } = req.params;
+router.get('/artist/:artistId', (req, res, next) => {
+    const { artistId } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(UserArtistId)){
-        res.status(400).json({ message: 'This venue does not appear to have baseNote account'});
-        return;
+    if(!mongoose.Types.ObjectId.isValid(artistId)){
+        res.status(400).json({ message: 'This venue does not appear to have baseNote account'})
     }
 
-    UserArtist.findById(UserArtistId)
+    UserArtist.findById(artistId)
     .populate('shows')
     .then(artist => res.status(200).json(artist))
     .catch(err => res.json(err));
