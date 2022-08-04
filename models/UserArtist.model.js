@@ -9,6 +9,11 @@ const userArtistSchema = new Schema(
       unique: true,
       required: 'Email address is required',
     },
+    username: {
+      type: String,
+      unique: true,
+      required:  'Username is required'
+    },
     password: { 
       type: String,
       trim: true,
