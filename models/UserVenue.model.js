@@ -37,8 +37,6 @@ const userVenueSchema = new Schema(
 );
 
 
-{/* <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3245.5456608837635!2d-82.5413506!3d35.5649215!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8859f3945836856d%3A0xd8623f49f1875c72!2sRabbit%20Rabbit!5e0!3m2!1sen!2sus!4v1659021974303!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
-
 const UserVenue = model("UserVenue", userVenueSchema);
 
 module.exports = UserVenue

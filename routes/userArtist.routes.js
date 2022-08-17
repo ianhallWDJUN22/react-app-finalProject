@@ -22,19 +22,4 @@ router.get('/artists', (req, res, next) => {
     .catch(err => res.json(err));
 })
 
-// router.post('/artists', (req, res, next) => {
-//     const { email, username, password, artistName, description } = req.body
-
-//     UserArtist.create({
-//         email,
-//         username,
-//         password,
-//         artistName,
-//         description,
-//         shows: []
-//     })
-//     .then(response => res.json(response))
-//     .catch(err => res.json(err));
-// });
-
 module.exports = router
